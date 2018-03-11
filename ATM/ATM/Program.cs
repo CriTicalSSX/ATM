@@ -8,31 +8,14 @@ namespace ATM
 {
     class Program
     {
+        public static Account[] accounts = new Account[3];
         public static bool dataRace = false;
-        Account[] accounts = new Account[3];
 
-        void accountSetup()
+        static void setupAccounts()
         {
             accounts[0] = new Account(111111, 1111, 300);
             accounts[1] = new Account(222222, 2222, 750);
             accounts[2] = new Account(333333, 3333, 3000);
-        }
-
-        public static void switchDataRace()
-        {
-            if (dataRace)
-            {
-                dataRace = false;
-            }
-            else
-            {
-                dataRace = true;
-            }
-        }
-
-        bool isDataRace()
-        {
-            return dataRace;
         }
 
         /// <summary>
@@ -41,6 +24,7 @@ namespace ATM
         [STAThread]
         static void Main()
         {
+            setupAccounts();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Menu());

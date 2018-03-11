@@ -18,9 +18,21 @@ namespace ATM
             InitializeComponent();
         }
 
+        public void switchDataRace()
+        {
+            if (Program.dataRace)
+            {
+                Program.dataRace = false;
+            }
+            else
+            {
+                Program.dataRace = true;
+            }
+        }
+
         private void raceConditionChange_CheckedChanged(object sender, EventArgs e)
         {
-            Program.switchDataRace();
+            switchDataRace();
         }
 
         private void newATM_Click(object sender, EventArgs e)
@@ -32,6 +44,16 @@ namespace ATM
         private void createATM()
         {
             Application.Run(new ATM());
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ATM  written in C# by Chris Macleman and Sam Glendenning. 2018");
         }
     }
 }
