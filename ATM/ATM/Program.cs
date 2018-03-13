@@ -8,14 +8,14 @@ namespace ATM
 {
     class Program
     {
-        public static Account[] accounts = new Account[3];
+        public static Account[] ac = new Account[3];
         public static bool dataRace = false;
 
         static void setupAccounts()
         {
-            accounts[0] = new Account(111111, 1111, 300);
-            accounts[1] = new Account(222222, 2222, 750);
-            accounts[2] = new Account(333333, 3333, 3000);
+            ac[0] = new Account(111111, 1111, 300);
+            ac[1] = new Account(222222, 2222, 750);
+            ac[2] = new Account(333333, 3333, 3000);
         }
 
         /// <summary>

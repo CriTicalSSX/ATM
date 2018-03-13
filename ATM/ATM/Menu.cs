@@ -18,7 +18,7 @@ namespace ATM
             InitializeComponent();
         }
 
-        public void switchDataRace()
+        private void raceConditionChange_CheckedChanged(object sender, EventArgs e)
         {
             if (Program.dataRace)
             {
@@ -30,11 +30,6 @@ namespace ATM
             }
         }
 
-        private void raceConditionChange_CheckedChanged(object sender, EventArgs e)
-        {
-            switchDataRace();
-        }
-
         private void newATM_Click(object sender, EventArgs e)
         {
             Thread newATM_t = new Thread(createATM);
@@ -43,7 +38,7 @@ namespace ATM
 
         private void createATM()
         {
-            Application.Run(new ATM());
+            Application.Run(new ATM());            
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)

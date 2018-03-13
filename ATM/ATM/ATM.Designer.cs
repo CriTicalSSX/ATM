@@ -33,11 +33,10 @@
             this.clear = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
-            this.test = new System.Windows.Forms.Button();
             this.bottomLeft = new System.Windows.Forms.Button();
             this.topLeft = new System.Windows.Forms.Button();
             this.topRight = new System.Windows.Forms.Button();
-            this.botomRight = new System.Windows.Forms.Button();
+            this.bottomRight = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.subLabel = new System.Windows.Forms.Label();
             this.lblEnter = new System.Windows.Forms.TextBox();
@@ -104,16 +103,6 @@
             this.button0.UseVisualStyleBackColor = false;
             this.button0.Click += new System.EventHandler(this.button0_Click);
             // 
-            // test
-            // 
-            this.test.Location = new System.Drawing.Point(355, 443);
-            this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(67, 31);
-            this.test.TabIndex = 13;
-            this.test.Text = "Test";
-            this.test.UseVisualStyleBackColor = true;
-            this.test.Click += new System.EventHandler(this.test_Click_1);
-            // 
             // bottomLeft
             // 
             this.bottomLeft.Location = new System.Drawing.Point(0, 128);
@@ -139,15 +128,16 @@
             this.topRight.Size = new System.Drawing.Size(65, 65);
             this.topRight.TabIndex = 17;
             this.topRight.UseVisualStyleBackColor = true;
+            this.topRight.Click += new System.EventHandler(this.topRight_Click);
             // 
-            // botomRight
+            // bottomRight
             // 
-            this.botomRight.Location = new System.Drawing.Point(367, 128);
-            this.botomRight.Name = "botomRight";
-            this.botomRight.Size = new System.Drawing.Size(65, 65);
-            this.botomRight.TabIndex = 18;
-            this.botomRight.UseVisualStyleBackColor = true;
-            this.botomRight.Click += new System.EventHandler(this.botomRight_Click);
+            this.bottomRight.Location = new System.Drawing.Point(367, 128);
+            this.bottomRight.Name = "bottomRight";
+            this.bottomRight.Size = new System.Drawing.Size(65, 65);
+            this.bottomRight.TabIndex = 18;
+            this.bottomRight.UseVisualStyleBackColor = true;
+            this.bottomRight.Click += new System.EventHandler(this.bottomRight_Click);
             // 
             // titleLabel
             // 
@@ -183,6 +173,8 @@
             // topLeftLabel
             // 
             this.topLeftLabel.AutoSize = true;
+            this.topLeftLabel.BackColor = System.Drawing.Color.MediumBlue;
+            this.topLeftLabel.ForeColor = System.Drawing.Color.White;
             this.topLeftLabel.Location = new System.Drawing.Point(69, 33);
             this.topLeftLabel.Name = "topLeftLabel";
             this.topLeftLabel.Size = new System.Drawing.Size(0, 13);
@@ -199,6 +191,8 @@
             // bottomLeftLabel
             // 
             this.bottomLeftLabel.AutoSize = true;
+            this.bottomLeftLabel.BackColor = System.Drawing.Color.MediumBlue;
+            this.bottomLeftLabel.ForeColor = System.Drawing.Color.White;
             this.bottomLeftLabel.Location = new System.Drawing.Point(70, 154);
             this.bottomLeftLabel.Name = "bottomLeftLabel";
             this.bottomLeftLabel.Size = new System.Drawing.Size(0, 13);
@@ -207,7 +201,9 @@
             // topRightLabel
             // 
             this.topRightLabel.AutoSize = true;
-            this.topRightLabel.Location = new System.Drawing.Point(348, 36);
+            this.topRightLabel.BackColor = System.Drawing.Color.MediumBlue;
+            this.topRightLabel.ForeColor = System.Drawing.Color.White;
+            this.topRightLabel.Location = new System.Drawing.Point(330, 36);
             this.topRightLabel.Name = "topRightLabel";
             this.topRightLabel.Size = new System.Drawing.Size(0, 13);
             this.topRightLabel.TabIndex = 25;
@@ -216,7 +212,9 @@
             // bottomRightLabel
             // 
             this.bottomRightLabel.AutoSize = true;
-            this.bottomRightLabel.Location = new System.Drawing.Point(336, 154);
+            this.bottomRightLabel.BackColor = System.Drawing.Color.MediumBlue;
+            this.bottomRightLabel.ForeColor = System.Drawing.Color.White;
+            this.bottomRightLabel.Location = new System.Drawing.Point(330, 154);
             this.bottomRightLabel.Name = "bottomRightLabel";
             this.bottomRightLabel.Size = new System.Drawing.Size(0, 13);
             this.bottomRightLabel.TabIndex = 26;
@@ -236,11 +234,10 @@
             this.Controls.Add(this.lblEnter);
             this.Controls.Add(this.subLabel);
             this.Controls.Add(this.titleLabel);
-            this.Controls.Add(this.botomRight);
+            this.Controls.Add(this.bottomRight);
             this.Controls.Add(this.topRight);
             this.Controls.Add(this.topLeft);
             this.Controls.Add(this.bottomLeft);
-            this.Controls.Add(this.test);
             this.Controls.Add(this.button0);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.clear);
@@ -261,11 +258,10 @@
         private System.Windows.Forms.Button clear;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button button0;
-        private System.Windows.Forms.Button test;
         private System.Windows.Forms.Button bottomLeft;
         private System.Windows.Forms.Button topLeft;
         private System.Windows.Forms.Button topRight;
-        private System.Windows.Forms.Button botomRight;
+        private System.Windows.Forms.Button bottomRight;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label subLabel;
         private System.Windows.Forms.TextBox lblEnter;

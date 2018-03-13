@@ -48,8 +48,8 @@ namespace ATM
                 topLeftLabel.Text = "";
                 bottomLeftLabel.Text = "";
                 topRightLabel.Text = "";
-                bottomRightLabel.Text = "Quit";
-                uint balance = Program.accounts[accountsIndex].getBalance();
+                bottomRightLabel.Text = "Back";
+                uint balance = Program.ac[accountsIndex].getBalance();
                 subLabel.Text = "Balance: £" + Convert.ToString(balance);
             }
             else if (x == "withdraw")
@@ -58,7 +58,7 @@ namespace ATM
                 topLeftLabel.Text = "£5";
                 bottomLeftLabel.Text = "£20";
                 topRightLabel.Text = "£10";
-                bottomRightLabel.Text = "Quit";
+                bottomRightLabel.Text = "Back";
             }
 
             state = x;
@@ -111,7 +111,7 @@ namespace ATM
 
             for (int i=0; i<3; i++)
             {
-                if (Program.accounts[i].getAccNum() == input)
+                if (Program.ac[i].getAccNum() == input)
                 {
                     accountsIndex = i;
                     switchState("pin");
@@ -126,7 +126,7 @@ namespace ATM
 
             for (int i = 0; i < 3; i++)
             {
-                if (Program.accounts[i].getPin() == input)
+                if (Program.ac[i].getPin() == input)
                 {
                     switchState("options");
                     return;
@@ -156,11 +156,6 @@ namespace ATM
             // Loops x amount of times until x is equal to the length in the array
             for (int y = 0; y < btn.GetLength(0); y++)
             {
-                
-                
-                
-                
-
                 // Loops x amount of times until y is equal to the length in the array
                 for (int x = 0; x < btn.GetLength(1); x++)     // Loop for y
                 {
@@ -181,19 +176,25 @@ namespace ATM
 
                     
                 }
-
-                
-
             }
 
         }
         void pinEvent_Click(object sender, EventArgs e)
-        {           
-            if (lblEnter.Text.Length < 6)
+        {
+            if (state == "account")
             {
-                string number = (sender as Button).Text;
-                lblEnter.Text += (number);
-            }     
+                if (lblEnter.Text.Length < 6)
+                {
+                    lblEnter.Text += (sender as Button).Text;
+                }
+            }
+            else if (state == "pin")
+            {
+                if (lblEnter.Text.Length < 4)
+                {
+                    lblEnter.Text += (sender as Button).Text;
+                }
+            }
         }
 
         private void enter_Click(object sender, EventArgs e)
@@ -215,12 +216,23 @@ namespace ATM
 
         private void button0_Click(object sender, EventArgs e)
         {
-            if (lblEnter.Text.Length < 6)
+            if (state == "account")
             {
-                lblEnter.Text += (sender as Button).Text;
+                if (lblEnter.Text.Length < 6)
+                {
+                    lblEnter.Text += (sender as Button).Text;
+                }
+            }
+            else if (state == "pin")
+            {
+                if (lblEnter.Text.Length < 4)
+                {
+                    lblEnter.Text += (sender as Button).Text;
+                }
             }
         }
 
+        //Withdraw, £5
         private void topLeft_Click(object sender, EventArgs e)
         {
             if (state == "options")
@@ -229,10 +241,21 @@ namespace ATM
             }
             else if (state == "withdraw")
             {
-                //£10 or whatever
+                if (Program.dataRace)
+                {
+                    subLabel.Text = "Withdrawing...";
+                }
+
+                if (!Program.ac[accountsIndex].withdraw(5))
+                {
+                    subLabel.Text = "Error. Insufficient funds.";
+                }
+
+                switchState("options");
             }
         }
 
+        //Balance, £20
         private void bottomLeft_Click(object sender, EventArgs e)
         {
             if (state == "options")
@@ -241,11 +264,22 @@ namespace ATM
             }
             else if (state == "withdraw")
             {
-                //£20 or whatever
+                if (Program.dataRace)
+                {
+                    subLabel.Text = "Withdrawing...";
+                }
+
+                if (!Program.ac[accountsIndex].withdraw(20))
+                {
+                    subLabel.Text = "Error. Insufficient funds.";
+                }
+
+                switchState("options");
             }
         }
 
-        private void botomRight_Click(object sender, EventArgs e)
+        //Quit
+        private void bottomRight_Click(object sender, EventArgs e)
         {
             if (state == "options")
             {
@@ -253,6 +287,25 @@ namespace ATM
             }
             else if (state == "withdraw" || state == "balance")
             {
+                switchState("options");
+            }
+        }
+
+        //£10
+        private void topRight_Click(object sender, EventArgs e)
+        {
+            if (state == "withdraw")
+            {
+                if (Program.dataRace)
+                {
+                    subLabel.Text = "Withdrawing...";
+                }
+
+                if (!Program.ac[accountsIndex].withdraw(10))
+                {
+                    subLabel.Text = "Error. Insufficient funds.";
+                }
+
                 switchState("options");
             }
         }
