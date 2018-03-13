@@ -13,10 +13,10 @@ namespace ATM
 {
     public partial class ATM : Form
     {
-        int accountsIndex;
-        Button[,] btn = new Button[3, 3];
-        Panel pinPanel = new Panel();
-        string state = "account";
+        int accountsIndex;      //stores the account number currently being interacted with
+        Button[,] btn = new Button[3, 3];       //array of buttons represents the keypad, apart from the zero button
+        Panel pinPanel = new Panel();           //groups the buttons into a controllable section
+        string state = "account";               //holds the current state of the ATM
 
         public ATM()
         {
@@ -24,6 +24,7 @@ namespace ATM
             setup();          
         }
 
+        //Changes the state of the ATM, which controls what text is displayed on screen and what each button does
         void switchState(string x)
         {
             if (x == "account")
@@ -65,6 +66,7 @@ namespace ATM
             lblEnter.Text = "";
         }
 
+        //Sets up the ATM with the layout it needs when first loaded up
         void setup()
         {
             Graphics g = this.CreateGraphics();
@@ -72,9 +74,34 @@ namespace ATM
             g.DrawRectangle(selPen, 10, 10, 50, 50);
             g.Dispose();
 
-           // keypad = new Button[] { button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, enter, clear, cancel };
+            pinPanel.SetBounds(80, 200, 280, 274);
+            pinPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            Controls.Add(pinPanel);
+            int counter = 0;
+            // Loops x amount of times until x is equal to the length in the array
+            for (int y = 0; y < btn.GetLength(0); y++)
+            {
+                // Loops x amount of times until y is equal to the length in the array
+                for (int x = 0; x < btn.GetLength(1); x++)     // Loop for y
+                {
+                    //Creates a new button
+                    btn[x, y] = new Button();
+
+                    //Sets the position and size of each button
+                    btn[x, y].SetBounds(65 * x, 65 * y, 75, 75);
+
+                    //Creates an event handler. This will be used later in the program for events for each button.
+                    btn[x, y].Click += new EventHandler(pinEvent_Click);
+                    counter++;
+                    btn[x, y].Text = Convert.ToString(counter);
+
+                    btn[x, y].Font = new Font("Microsoft Sans Serif", 20.25f);
+                    pinPanel.Controls.Add(btn[x, y]);
+                }
+            }
         }
 
+        //Used to display the screen to the user
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -89,13 +116,9 @@ namespace ATM
             g.FillRectangle(solidBrush, 65, 10, 300, 180);
         }
 
+        //Toggles the visibility of the keypad. When off, only the screen is shown
         public void keypadVisible(bool x)
         {
-            /* for (int i = 0; i < 13; i++)
-             {
-                 keypad[i].Visible = x;
-             }*/
-
             pinPanel.Visible=x;
             button0.Visible=x;
             enter.Visible = x;
@@ -104,8 +127,9 @@ namespace ATM
 
         }
 
-        //logic for checking the account against stored account numbers 
-        public void accountCheck()
+        //Code for checking the account against stored account numbers. When the user's
+        //input matches an account number, the function returns true
+        public bool accountCheck()
         {
             int input = Convert.ToInt32(lblEnter.Text);
 
@@ -114,13 +138,14 @@ namespace ATM
                 if (Program.ac[i].getAccNum() == input)
                 {
                     accountsIndex = i;
-                    switchState("pin");
-                    return;
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        public void pinNumberCheck()
+        public bool pinNumberCheck()
         {
             int input = Convert.ToInt32(lblEnter.Text);
 
@@ -128,92 +153,74 @@ namespace ATM
             {
                 if (Program.ac[i].getPin() == input)
                 {
-                    switchState("options");
-                    return;
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        private void test_Click_1(object sender, EventArgs e)
-        {
-            MessageBox.Show("Hiding...");
-            keypadVisible(false);
-            MessageBox.Show("Showing...");
-            keypadVisible(true);
-        }
-
+        //If cancel button clicked at any time, ATM exits
         private void cancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void ATM_Load(object sender, EventArgs e)
-        {
-            pinPanel.SetBounds(80, 200, 280, 274);
-            pinPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            Controls.Add(pinPanel);
-            int counter = 0;
-            // Loops x amount of times until x is equal to the length in the array
-            for (int y = 0; y < btn.GetLength(0); y++)
-            {
-                // Loops x amount of times until y is equal to the length in the array
-                for (int x = 0; x < btn.GetLength(1); x++)     // Loop for y
-                {
-                    
-                    //Creates a new button
-                    btn[x, y] = new Button();
-
-                    //Sets the position and size of each button
-                    btn[x, y].SetBounds(65 * x, 65 * y, 75, 75);
-
-                    //Creates an event handler. This will be used later in the program for events for each button.
-                    btn[x, y].Click += new EventHandler(pinEvent_Click);
-                    counter++;
-                    btn[x, y].Text = Convert.ToString(counter);
-                     
-                    btn[x, y].Font = new Font("Microsoft Sans Serif", 20.25f );
-                    pinPanel.Controls.Add(btn[x, y]);
-
-                    
-                }
-            }
-
-        }
+        //The event handler for keys 1-9. Button 0 has the exact same code. Keys are
+        //only active in account state or pin state
         void pinEvent_Click(object sender, EventArgs e)
         {
             if (state == "account")
             {
-                if (lblEnter.Text.Length < 6)
+                if (lblEnter.Text.Length < 6)       //account number can't have more than 6 digits
                 {
                     lblEnter.Text += (sender as Button).Text;
                 }
             }
             else if (state == "pin")
             {
-                if (lblEnter.Text.Length < 4)
+                if (lblEnter.Text.Length < 4)       //pin number can't have more than 4 digits
                 {
                     lblEnter.Text += (sender as Button).Text;
                 }
             }
         }
 
+        //If enter button pressed, state either advances from account number entry to
+        //pin number entry or from pin number entry to options screen
         private void enter_Click(object sender, EventArgs e)
         {
             if (state == "account")
             {
-                accountCheck();
+                if (!accountCheck())
+                {
+                    subLabel.Text = "This account number could not be found";
+                }
+                else
+                {
+                    switchState("pin");
+                }
             }
             else if (state == "pin")
             {
-                pinNumberCheck();
+                if (!pinNumberCheck())
+                {
+                    subLabel.Text = "Incorrect PIN";
+                }
+                else
+                {
+                    switchState("options");
+                }
             }
         }
 
+        //Whenever the clear button is pressed, program quits
         private void clear_Click(object sender, EventArgs e)
         {
             lblEnter.Text = ("");
         }
 
+        //Same code as all other numbered keys
         private void button0_Click(object sender, EventArgs e)
         {
             if (state == "account")
@@ -232,7 +239,8 @@ namespace ATM
             }
         }
 
-        //Withdraw, £5
+        //Only active during options, balance or withdraw state
+        //Represents option to either withdraw and then, in that state, withdraw £5
         private void topLeft_Click(object sender, EventArgs e)
         {
             if (state == "options")
@@ -255,7 +263,8 @@ namespace ATM
             }
         }
 
-        //Balance, £20
+        //Only active during options, balance or withdraw state
+        //Represents option to either check balance or withdraw £20
         private void bottomLeft_Click(object sender, EventArgs e)
         {
             if (state == "options")
@@ -278,7 +287,8 @@ namespace ATM
             }
         }
 
-        //Quit
+        //Only active during options, balance or withdraw state
+        //Allows the user to go back to previous screen or quit
         private void bottomRight_Click(object sender, EventArgs e)
         {
             if (state == "options")
@@ -291,7 +301,8 @@ namespace ATM
             }
         }
 
-        //£10
+        //Only active during options, balance or withdraw state
+        //Allows user to withdraw £10 in withdraw state
         private void topRight_Click(object sender, EventArgs e)
         {
             if (state == "withdraw")
@@ -310,8 +321,4 @@ namespace ATM
             }
         }
     }
-
-
-
 }
-

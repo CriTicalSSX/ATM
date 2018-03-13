@@ -247,7 +247,6 @@
             this.MinimumSize = new System.Drawing.Size(450, 525);
             this.Name = "ATM";
             this.Text = "ATM";
-            this.Load += new System.EventHandler(this.ATM_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
