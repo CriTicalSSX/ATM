@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace ATM
 {
-    class Account
+    public class Account
     {
-        int accNum, pin;
+        int accountNum, pin;
         uint balance;
 
         public Account(int x, int y, uint z)
         {
-            accNum = x;
+            accountNum = x;
             pin = y;
             balance = z;
         }
 
         public int getAccNum()
         {
-            return accNum;
+            return accountNum;
         }
 
         public int getPin()
@@ -37,9 +37,16 @@ namespace ATM
         {
             if (balance >= x)
             {
-                balance -= x;
+                uint balanceBeforeChange = balance;
+
+                if (Program.dataRace)
+                {
+                    System.Threading.Thread.Sleep(4000);
+                }
+
+                balance = balanceBeforeChange - x;
                 return true;
-            }
+            }              
 
             return false;
         }
