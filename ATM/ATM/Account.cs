@@ -30,6 +30,7 @@ namespace ATM
         {
             return pin;
         }
+        
 
         //Accessor function, retrieves the current balance of the account
         public uint getBalance()

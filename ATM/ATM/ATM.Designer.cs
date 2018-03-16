@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ATM));
             this.enter = new System.Windows.Forms.Button();
             this.clear = new System.Windows.Forms.Button();
@@ -38,13 +39,14 @@
             this.topRight = new System.Windows.Forms.Button();
             this.bottomRight = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.subLabel = new System.Windows.Forms.Label();
             this.lblEnter = new System.Windows.Forms.TextBox();
             this.topLeftLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.bottomLeftLabel = new System.Windows.Forms.Label();
             this.topRightLabel = new System.Windows.Forms.Label();
             this.bottomRightLabel = new System.Windows.Forms.Label();
+            this.incorrectPinTimer = new System.Windows.Forms.Timer(this.components);
+            this.sublbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // enter
@@ -150,20 +152,10 @@
             this.titleLabel.TabIndex = 19;
             this.titleLabel.Text = "Welcome to the ATM";
             // 
-            // subLabel
-            // 
-            this.subLabel.AutoSize = true;
-            this.subLabel.BackColor = System.Drawing.Color.MediumBlue;
-            this.subLabel.ForeColor = System.Drawing.Color.White;
-            this.subLabel.Location = new System.Drawing.Point(137, 154);
-            this.subLabel.Name = "subLabel";
-            this.subLabel.Size = new System.Drawing.Size(169, 13);
-            this.subLabel.TabIndex = 20;
-            this.subLabel.Text = "Please enter your account number";
-            // 
             // lblEnter
             // 
             this.lblEnter.BackColor = System.Drawing.Color.MediumBlue;
+            this.lblEnter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblEnter.ForeColor = System.Drawing.Color.White;
             this.lblEnter.Location = new System.Drawing.Point(140, 89);
             this.lblEnter.Name = "lblEnter";
@@ -220,19 +212,36 @@
             this.bottomRightLabel.TabIndex = 26;
             this.bottomRightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // incorrectPinTimer
+            // 
+            this.incorrectPinTimer.Interval = 3000;
+            this.incorrectPinTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // sublbl
+            // 
+            this.sublbl.AutoSize = true;
+            this.sublbl.BackColor = System.Drawing.Color.MediumBlue;
+            this.sublbl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sublbl.ForeColor = System.Drawing.Color.White;
+            this.sublbl.Location = new System.Drawing.Point(137, 154);
+            this.sublbl.Name = "sublbl";
+            this.sublbl.Size = new System.Drawing.Size(169, 13);
+            this.sublbl.TabIndex = 27;
+            this.sublbl.Text = "Please enter your account number";
+            // 
             // ATM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(434, 486);
+            this.Controls.Add(this.sublbl);
             this.Controls.Add(this.bottomRightLabel);
             this.Controls.Add(this.topRightLabel);
             this.Controls.Add(this.bottomLeftLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.topLeftLabel);
             this.Controls.Add(this.lblEnter);
-            this.Controls.Add(this.subLabel);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.bottomRight);
             this.Controls.Add(this.topRight);
@@ -243,10 +252,10 @@
             this.Controls.Add(this.clear);
             this.Controls.Add(this.enter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(450, 525);
-            this.MinimumSize = new System.Drawing.Size(450, 525);
+            this.MaximumSize = new System.Drawing.Size(2000, 2000);
             this.Name = "ATM";
             this.Text = "ATM";
+            this.Load += new System.EventHandler(this.ATM_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,12 +271,13 @@
         private System.Windows.Forms.Button topRight;
         private System.Windows.Forms.Button bottomRight;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.Label subLabel;
         private System.Windows.Forms.TextBox lblEnter;
         private System.Windows.Forms.Label topLeftLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label bottomLeftLabel;
         private System.Windows.Forms.Label topRightLabel;
         private System.Windows.Forms.Label bottomRightLabel;
+        private System.Windows.Forms.Timer incorrectPinTimer;
+        private System.Windows.Forms.Label sublbl;
     }
 }

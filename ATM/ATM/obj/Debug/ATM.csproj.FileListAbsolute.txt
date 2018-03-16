@@ -31,3 +31,25 @@ C:\Users\samgl\OneDrive\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.csproj.Genera
 C:\Users\samgl\OneDrive\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.csproj.CoreCompileInputs.cache
 C:\Users\samgl\OneDrive\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.exe
 C:\Users\samgl\OneDrive\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.pdb
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\bin\Debug\ATM.exe.config
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\bin\Debug\ATM.exe
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\bin\Debug\ATM.pdb
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.csprojResolveAssemblyReference.cache
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.ATM.resources
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.Menu.resources
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.Properties.Resources.resources
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.csproj.GenerateResource.Cache
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.csproj.CoreCompileInputs.cache
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.exe
+C:\Users\Chris\Desktop\Sem2Year2\Computer Arch\Fullyworking\ATM-master\ATM\ATM\obj\Debug\ATM.pdb
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\bin\Debug\ATM.exe.config
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\bin\Debug\ATM.exe
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\bin\Debug\ATM.pdb
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.csprojResolveAssemblyReference.cache
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.ATM.resources
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.Menu.resources
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.Properties.Resources.resources
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.csproj.GenerateResource.cache
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.csproj.CoreCompileInputs.cache
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.exe
+C:\Users\samgl\Desktop\ATM-master\ATM\ATM\obj\Debug\ATM.pdb

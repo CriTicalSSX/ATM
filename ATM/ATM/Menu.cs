@@ -15,6 +15,9 @@ namespace ATM
     {
         public Menu()
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
         }
 
@@ -64,6 +67,11 @@ namespace ATM
             {
                 Application.Exit();
             }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

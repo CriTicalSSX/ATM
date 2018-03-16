@@ -17,6 +17,7 @@ namespace ATM
         Button[,] btn = new Button[3, 3];       //array of buttons represents the keypad, apart from the zero button
         Panel pinPanel = new Panel();           //groups the buttons into a controllable section
         string state = "account";               //holds the current state of the ATM
+        int count = 0;
 
         public ATM()
         {
@@ -29,16 +30,16 @@ namespace ATM
         {
             if (x == "account")
             {
-                subLabel.Text = "Please enter your account number.";
+                sublbl.Text = "Please enter your account number.";
             }
             else if (x == "pin")
             {
-                subLabel.Text = "Please enter your pin number.";
+                sublbl.Text = "Please enter your pin number.";
             }
             else if (x == "options")
             {
                 lblEnter.Visible = false;
-                subLabel.Text = "Choose an option.";
+                sublbl.Text = "Choose an option.";
                 topLeftLabel.Text = "Withdraw";
                 bottomLeftLabel.Text = "Balance";
                 topRightLabel.Text = "";
@@ -51,11 +52,11 @@ namespace ATM
                 topRightLabel.Text = "";
                 bottomRightLabel.Text = "Back";
                 uint balance = Program.ac[accountsIndex].getBalance();
-                subLabel.Text = "Balance: £" + Convert.ToString(balance);
+                sublbl.Text = "Your balance is : £" + Convert.ToString(balance);
             }
             else if (x == "withdraw")
             {
-                subLabel.Text = "Withdraw:";
+                sublbl.Text = "Withdraw money: ";
                 topLeftLabel.Text = "£5";
                 bottomLeftLabel.Text = "£20";
                 topRightLabel.Text = "£10";
@@ -69,6 +70,11 @@ namespace ATM
         //Sets up the ATM with the layout it needs when first loaded up
         void setup()
         {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+
             Graphics g = this.CreateGraphics();
             Pen selPen = new Pen(Color.MediumBlue);
             g.DrawRectangle(selPen, 10, 10, 50, 50);
@@ -131,32 +137,39 @@ namespace ATM
         //input matches an account number, the function returns true
         public bool accountCheck()
         {
-            int input = Convert.ToInt32(lblEnter.Text);
-
-            for (int i=0; i<3; i++)
+            if (!string.IsNullOrWhiteSpace(lblEnter.Text))
             {
-                if (Program.ac[i].getAccNum() == input)
-                {
-                    accountsIndex = i;
-                    return true;
-                }
-            }
+                int input = Convert.ToInt32(lblEnter.Text);
 
+                for (int i = 0; i < 3; i++)
+                {
+                    if (Program.ac[i].getAccNum() == input)
+                    {
+                        accountsIndex = i;
+                        return true;
+                    }
+                }
+
+            }
             return false;
         }
 
         public bool pinNumberCheck()
         {
-            int input = Convert.ToInt32(lblEnter.Text);
-
-            for (int i = 0; i < 3; i++)
+            
+            if (!string.IsNullOrWhiteSpace(lblEnter.Text))
             {
-                if (Program.ac[i].getPin() == input)
+                int input = Convert.ToInt32(lblEnter.Text);
+                for (int i = 0; i < 3; i++)
                 {
-                    return true;
+                    if (Program.ac[i].getPin() == input)
+                    {
+                        return true;
+                    }
                 }
-            }
 
+                
+            }
             return false;
         }
 
@@ -190,11 +203,12 @@ namespace ATM
         //pin number entry or from pin number entry to options screen
         private void enter_Click(object sender, EventArgs e)
         {
+
             if (state == "account")
             {
                 if (!accountCheck())
                 {
-                    subLabel.Text = "This account number could not be found";
+                    sublbl.Text = "This account number could not be found";
                 }
                 else
                 {
@@ -203,15 +217,97 @@ namespace ATM
             }
             else if (state == "pin")
             {
+
                 if (!pinNumberCheck())
                 {
-                    subLabel.Text = "Incorrect PIN";
+                    sublbl.Text = "Incorrect PIN";
+                    lblEnter.Text = "";
+                    
+
+                    //keeps track of how many attempts have been made. If three attempts have been
+                    //tried then exit out of the program
+                    count++;
+
+                    if(count == 3)
+                    {
+                      sublbl.Text = "Sorry, you've tried 3 times. Blocking account.";
+
+                        //starts a timer that will exit the user from the program.
+                        incorrectPinTimer.Start();
+                    }
+
                 }
                 else
                 {
                     switchState("options");
+                    formatting();
                 }
             }
+        }
+
+        private void formatting()
+        {
+
+            //hides the keypad from view
+            pinPanel.Hide();
+            button0.Hide();
+            enter.Hide();
+            cancel.Hide();
+            clear.Hide();
+
+            int height = 0;
+
+            //Uses threading in a different way to stretch the screen out.
+            for (int width = 450; width <= 1000; width++)
+            {
+                height++;
+                this.Size = new Size(width, height);
+                System.Threading.Thread.Sleep(1);//To pause the execution for sometime.
+
+            }
+
+            //Change location and size of the buttons on the right hand side
+            topRight.Location = new Point(917, 0);
+            bottomRight.Location = new Point(917, 445);
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
+            //Change location and size of the buttons on the left hand side
+            topLeft.Location = new Point(0, 0);
+            bottomLeft.Location = new Point(0, 445);
+            
+
+            //Changes position of the labels on the left hand side
+            topLeftLabel.Location = new Point(8, 25);
+            bottomLeftLabel.Location = new Point(5, 455);
+
+            
+
+            //changes position of the labels on the right hand side
+            topRightLabel.Location = new Point(920, 5);
+            bottomRightLabel.Location = new Point(920, 455);
+
+            //aligns the title label in to the middle of the screen
+            titleLabel.Location = new Point(360, 60);
+            titleLabel.Font = new Font("Arial", 15f);
+
+            //Aligns lblenter to a new position and changes its font
+            lblEnter.Location = new Point(360, 90);
+            lblEnter.Font = new Font("Arial", 15f);
+
+            // aligns the sub label to a new position and changes it font
+            sublbl.Font = new Font("Arial", 15f);
+            sublbl.Location = new Point(360, 140);
+            //sublbl.Size = new Size(140, 35);
+            
+            //Uses a brush to paint the background blue.
+            Graphics g = this.CreateGraphics();
+            SolidBrush solidBrush = new SolidBrush(Color.MediumBlue);
+            g.FillRectangle(solidBrush, 0, 0, 1000, 1000);
+            
+
         }
 
         //Whenever the clear button is pressed, program quits
@@ -251,12 +347,12 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    subLabel.Text = "Withdrawing...";
+                    sublbl.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(5))
                 {
-                    subLabel.Text = "Error. Insufficient funds.";
+                    sublbl.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
@@ -275,12 +371,12 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    subLabel.Text = "Withdrawing...";
+                    sublbl.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(20))
                 {
-                    subLabel.Text = "Error. Insufficient funds.";
+                    sublbl.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
@@ -309,16 +405,29 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    subLabel.Text = "Withdrawing...";
+                    sublbl.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(10))
                 {
-                    subLabel.Text = "Error. Insufficient funds.";
+                    sublbl.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
             }
+        }
+
+        private void ATM_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        //timer to exit the program
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Application.Exit();  
+            incorrectPinTimer.Stop();
         }
     }
 }
