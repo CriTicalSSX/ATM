@@ -19,6 +19,7 @@ namespace ATM
             balance = z;
         }
 
+
         //Accessor function, retrieves the account number
         public int getAccNum()
         {
@@ -30,7 +31,9 @@ namespace ATM
         {
             return pin;
         }
-        
+
+
+
 
         //Accessor function, retrieves the current balance of the account
         public uint getBalance()
@@ -60,5 +63,12 @@ namespace ATM
 
             return false;
         }
+        public void setAccount(int x, int y, uint z)
+        {
+            accountNum = x;
+            pin = y;
+            balance = z;
+        }
     }
+
 }

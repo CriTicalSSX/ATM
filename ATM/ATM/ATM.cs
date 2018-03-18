@@ -1,4 +1,8 @@
-﻿using System;
+﻿//ATM by Chris Macleman and Sam Glendinning
+//Matriculation numbers: 
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,16 +34,16 @@ namespace ATM
         {
             if (x == "account")
             {
-                sublbl.Text = "Please enter your account number.";
+                subLabel.Text = "Please enter your account number.";
             }
             else if (x == "pin")
             {
-                sublbl.Text = "Please enter your pin number.";
+                subLabel.Text = "Please enter your pin number.";
             }
             else if (x == "options")
             {
                 lblEnter.Visible = false;
-                sublbl.Text = "Choose an option.";
+                subLabel.Text = "Choose an option.";
                 topLeftLabel.Text = "Withdraw";
                 bottomLeftLabel.Text = "Balance";
                 topRightLabel.Text = "";
@@ -52,11 +56,11 @@ namespace ATM
                 topRightLabel.Text = "";
                 bottomRightLabel.Text = "Back";
                 uint balance = Program.ac[accountsIndex].getBalance();
-                sublbl.Text = "Your balance is : £" + Convert.ToString(balance);
+                subLabel.Text = "Balance: £" + Convert.ToString(balance);
             }
             else if (x == "withdraw")
             {
-                sublbl.Text = "Withdraw money: ";
+                subLabel.Text = "Withdraw:";
                 topLeftLabel.Text = "£5";
                 bottomLeftLabel.Text = "£20";
                 topRightLabel.Text = "£10";
@@ -143,11 +147,13 @@ namespace ATM
 
                 for (int i = 0; i < 3; i++)
                 {
+
                     if (Program.ac[i].getAccNum() == input)
                     {
                         accountsIndex = i;
                         return true;
                     }
+
                 }
 
             }
@@ -208,7 +214,7 @@ namespace ATM
             {
                 if (!accountCheck())
                 {
-                    sublbl.Text = "This account number could not be found";
+                    subLabel.Text = "This account number could not be found";
                 }
                 else
                 {
@@ -220,7 +226,7 @@ namespace ATM
 
                 if (!pinNumberCheck())
                 {
-                    sublbl.Text = "Incorrect PIN";
+                    subLabel.Text = "Incorrect PIN";
                     lblEnter.Text = "";
                     
 
@@ -230,8 +236,10 @@ namespace ATM
 
                     if(count == 3)
                     {
-                      sublbl.Text = "Sorry, you've tried 3 times. Blocking account.";
-
+                      
+                        Program.ac[accountsIndex].setAccount(0, 0, 0);
+                      subLabel.Text = "Sorry, you've tried 3 times. Blocking account.";
+                        
                         //starts a timer that will exit the user from the program.
                         incorrectPinTimer.Start();
                     }
@@ -298,9 +306,8 @@ namespace ATM
             lblEnter.Font = new Font("Arial", 15f);
 
             // aligns the sub label to a new position and changes it font
-            sublbl.Font = new Font("Arial", 15f);
-            sublbl.Location = new Point(360, 140);
-            //sublbl.Size = new Size(140, 35);
+            subLabel.Font = new Font("Arial", 15f);
+            subLabel.Location = new Point(360, 140);
             
             //Uses a brush to paint the background blue.
             Graphics g = this.CreateGraphics();
@@ -347,12 +354,12 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    sublbl.Text = "Withdrawing...";
+                    subLabel.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(5))
                 {
-                    sublbl.Text = "Error. Insufficient funds.";
+                    subLabel.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
@@ -371,12 +378,12 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    sublbl.Text = "Withdrawing...";
+                    subLabel.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(20))
                 {
-                    sublbl.Text = "Error. Insufficient funds.";
+                    subLabel.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
@@ -405,12 +412,12 @@ namespace ATM
             {
                 if (Program.dataRace)
                 {
-                    sublbl.Text = "Withdrawing...";
+                    subLabel.Text = "Withdrawing...";
                 }
 
                 if (!Program.ac[accountsIndex].withdraw(10))
                 {
-                    sublbl.Text = "Error. Insufficient funds.";
+                    subLabel.Text = "Error. Insufficient funds.";
                 }
 
                 switchState("options");
@@ -426,7 +433,7 @@ namespace ATM
         //timer to exit the program
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Application.Exit();  
+            Close(); 
             incorrectPinTimer.Stop();
         }
     }
